@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('address');
             $table->string('city');
-            $table->string('postal_code');
+            $table->string('postal_code'); 
             $table->unsignedBigInteger('id_from');
             $table->foreign('id_from')->references('id')->on('froms')->onDelete('cascade');
         });
