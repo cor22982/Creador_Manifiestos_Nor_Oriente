@@ -14,8 +14,5 @@ use App\Models\Package;
 
 class ControlPackage extends Controller
 {
-    public function index () {
-        
-
-    }
+   
 }
