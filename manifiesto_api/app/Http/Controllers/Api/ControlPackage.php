@@ -14,5 +14,16 @@ use App\Models\Package;
 
 class ControlPackage extends Controller
 {
-   
+    public function store(Request $request)
+    {
+        $package = new Package();
+        $package -> hawb = $request-> hawb ;
+
+    }
+
+    public function store_manifest(Request $request){
+        $manifest = new Manifest();
+        $manifest -> code = $request -> code;
+        $manifest-> save();
+    }
 }
