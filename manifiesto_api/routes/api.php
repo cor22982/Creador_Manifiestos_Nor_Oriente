@@ -13,6 +13,7 @@ Route::get('/user', function (Request $request) {
 Route::controller(ControllAddress::class)->group(function () {
     Route::get('/guatemala_address', 'guatemalaadd');
     Route::get('/usa_address', 'unitatestateadd');
+    Route::get('/traslate', 'runPythonScript');
 });
 
 
