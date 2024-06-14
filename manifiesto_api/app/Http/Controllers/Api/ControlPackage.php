@@ -14,6 +14,32 @@ use Illuminate\Support\Facades\Validator;
 
 class ControlPackage extends Controller
 {
+    public function index(){
+        $packages = Package::join('clients as shipper', 'packages.shipper', '=', 'shipper.name')
+                            ->join('clients as consing', 'packages.consing', '=', 'consing.name')
+                            ->join('addresses as add_ship', 'shipper.id_address', '=', 'add_ship.id')
+                            ->join('addresses as add_consg', 'consing.id_address', '=', 'add_consg.id')
+                            ->select(
+                                'packages.bag as Bulto', 
+                                'packages.hawb as Codigo',
+                                'packages.weight_kg as Peso(kg)', 
+                                'packages.weight_lb as Peso(lb)',
+                                'packages.type_bag as Tipo',
+                                'packages.description_spanish as Contenido(Español)',
+                                'packages.description_english as Contenido(Ingles)',
+                                'packages.shipper as Envia',
+                                'add_ship.address as Direccion_Envia',
+                                'add_ship.city as Ciudad_Envia',
+                                'packages.consing as Recibe',
+                                'consing.telephone as Telefono_Recibe',
+                                'add_consg.address as Direccion_Recibe',
+                                'add_consg.city as Ciudad_Recibe',
+                                'packages.atendend as Atendido',
+                                'packages.custom_value as Costo'
+                                )
+                            ->get();
+        return $packages;
+    }
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [

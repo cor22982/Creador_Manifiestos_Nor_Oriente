@@ -19,4 +19,5 @@ Route::controller(ControllAddress::class)->group(function () {
 Route::controller(ControlPackage::class)->group(function () {
     Route::post('/insert_manifest', 'store_manifest');
     Route::post('/insert_package', 'store');
+    Route::get('/manifiesto', 'index');
 });
