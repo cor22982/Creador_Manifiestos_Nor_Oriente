@@ -13,10 +13,10 @@ Route::get('/user', function (Request $request) {
 Route::controller(ControllAddress::class)->group(function () {
     Route::get('/guatemala_address', 'guatemalaadd');
     Route::get('/usa_address', 'unitatestateadd');
-    Route::get('/traslate', 'runPythonScript');
 });
 
 
 Route::controller(ControlPackage::class)->group(function () {
     Route::post('/insert_manifest', 'store_manifest');
+    Route::post('/insert_package', 'store');
 });

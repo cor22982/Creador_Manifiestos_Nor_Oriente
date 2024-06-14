@@ -8,6 +8,8 @@ use App\Models\Address;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
+
 class ControllAddress extends Controller
 {
     
@@ -28,14 +30,5 @@ class ControllAddress extends Controller
 
         return $addresses;
     }
-
-    
-
-    public function runPythonScript()
-    {
-        
-    }
-
-
     
 }
