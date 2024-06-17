@@ -12,6 +12,7 @@ use App\Models\Package;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class ControlPackage extends Controller
 {
@@ -248,6 +249,119 @@ class ControlPackage extends Controller
             return response()->json(['error' => 'No se encontro el paquete'], 500);            
         }
     }
+
+    public function destroy(string $hawb)
+    {
+        $product = Package::destroy($hawb);        
+        return $product;
+    }
+
+    public function printall () {
+        $packages = Package::join('clients as shipper', 'packages.shipper', '=', 'shipper.name')
+                            ->join('clients as consing', 'packages.consing', '=', 'consing.name')
+                            ->join('addresses as add_ship', 'shipper.id_address', '=', 'add_ship.id')
+                            ->join('addresses as add_consg', 'consing.id_address', '=', 'add_consg.id')
+                            ->join('froms as ship_from', 'add_ship.id_from', '=', 'ship_from.id')
+                            ->join('froms as cosg_from', 'add_consg.id_from', '=', 'cosg_from.id')
+                            ->join('manifests', 'manifests.code', '=', 'packages.manifest')
+                            ->select(
+                                'packages.shipper as envia',
+                                'packages.bag as bulto',
+                                'add_ship.address as direccion_envia',
+                                DB::raw("CONCAT(add_ship.city, ' - ', ship_from.completename) as ciudad_envia"),
+                                'packages.consing as recibe',
+                                'add_consg.address as direccion_recibe',
+                                'add_consg.city as ciudad_recibe',
+                                'cosg_from.region_state as region',
+                                'add_consg.postal_code as codigo_postal',
+                                'consing.telephone as telefono_recibe',
+                                DB::raw("DATE_FORMAT(manifests.date, '%d/%m/%Y') as fecha_manifesto"),
+                                DB::raw("CONCAT(packages.pieces, 'PAQ') as descripcion"),
+                                'packages.description_spanish as contenido',
+                                'packages.weight_lb as peso',
+                                'packages.hawb as codigo',
+                                'packages.type_bag as tipo',
+                                'packages.atendend as atendido',
+                                )
+                            ->get();
+        return $packages;        
+    }
+
+    public function printlist (Request $request) {
+        $validatedData = $request->validate([
+            'hawb_codes' => 'required|array',
+            'hawb_codes.*' => 'required|string|distinct', // Ensure all hawb codes are unique strings
+        ]);
+        $hawbCodes = $validatedData['hawb_codes'];
+        $packages = Package::join('clients as shipper', 'packages.shipper', '=', 'shipper.name')
+                            ->join('clients as consing', 'packages.consing', '=', 'consing.name')
+                            ->join('addresses as add_ship', 'shipper.id_address', '=', 'add_ship.id')
+                            ->join('addresses as add_consg', 'consing.id_address', '=', 'add_consg.id')
+                            ->join('froms as ship_from', 'add_ship.id_from', '=', 'ship_from.id')
+                            ->join('froms as cosg_from', 'add_consg.id_from', '=', 'cosg_from.id')
+                            ->join('manifests', 'manifests.code', '=', 'packages.manifest')
+                            ->whereIn('packages.hawb', $hawbCodes)
+                            ->select(
+                                'packages.shipper as envia',
+                                'packages.bag as bulto',
+                                'add_ship.address as direccion_envia',
+                                DB::raw("CONCAT(add_ship.city, ' - ', ship_from.completename) as ciudad_envia"),
+                                'packages.consing as recibe',
+                                'add_consg.address as direccion_recibe',
+                                'add_consg.city as ciudad_recibe',
+                                'cosg_from.region_state as region',
+                                'add_consg.postal_code as codigo_postal',
+                                'consing.telephone as telefono_recibe',
+                                DB::raw("DATE_FORMAT(manifests.date, '%d/%m/%Y') as fecha_manifesto"),
+                                DB::raw("CONCAT(packages.pieces, 'PAQ') as descripcion"),
+                                'packages.description_spanish as contenido',
+                                'packages.weight_lb as peso',
+                                'packages.hawb as codigo',
+                                'packages.type_bag as tipo',
+                                'packages.atendend as atendido',
+                            )
+                            ->get();
+
+        return response()->json(['packages' => $packages]);
+    }
+    
+    public function printone(string $hawb)
+    {
+        try {
+            $package = Package::where('hawb', $hawb)
+                                ->join('clients as shipper', 'packages.shipper', '=', 'shipper.name')
+                                ->join('addresses as add_ship', 'shipper.id_address', '=', 'add_ship.id')
+                                ->join('froms as ship_from', 'add_ship.id_from', '=', 'ship_from.id')
+                                ->join('clients as consing', 'packages.consing', '=', 'consing.name')
+                                ->join('addresses as add_consg', 'consing.id_address', '=', 'add_consg.id')
+                                ->join('froms as cosg_from', 'add_consg.id_from', '=', 'cosg_from.id')
+                                ->join('manifests', 'manifests.code', '=', 'packages.manifest')
+                
+                ->select(
+                    'packages.shipper as envia',
+                    'packages.bag as bulto',
+                    'add_ship.address as direccion_envia',
+                    DB::raw("CONCAT(add_ship.city, ' - ',ship_from.completename) as ciudad_envia"),
+                    'packages.consing as recibe',
+                    'add_consg.address as direccion_recibe',
+                    'add_consg.city as ciudad_recibe',
+                    'cosg_from.region_state as region',
+                    'add_consg.postal_code as codigo_postal',
+                    'consing.telephone as telefono_recibe',
+                    DB::raw("DATE_FORMAT(manifests.date, '%d/%m/%Y') as fecha_manifesto"),
+                    DB::raw("CONCAT(packages.pieces, 'PAQ') as descripcion"),
+                    'packages.description_spanish as contenido',
+                    'packages.weight_lb as peso',
+                    'packages.hawb as codigo',
+                    'packages.type_bag as tipo',
+                    'packages.atendend as atendido',
+                )
+                ->firstOrFail(); 
+    
+            return $package;
+        } catch (\Exception $e) {
+            Log::error('Error fetching package: ' . $e->getMessage());
+            return response()->json(['error' => 'No se encontró el paquete'], 500);
+        }
+    }
 }
-
-

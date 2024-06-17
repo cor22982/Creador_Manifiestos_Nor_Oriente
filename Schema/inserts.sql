@@ -1,10 +1,10 @@
-INSERT INTO `froms`(`region_state`, `country`) VALUES ('GT','GT'); /*1*/
-INSERT INTO `froms`(`region_state`, `country`) VALUES ('NY','USA');/*2*/
-INSERT INTO `froms`(`region_state`, `country`) VALUES ('FX','USA');/*3*/
-INSERT INTO `froms`(`region_state`, `country`) VALUES ('AL','USA');/*4*/
-INSERT INTO `froms`(`region_state`, `country`) VALUES ('PA','USA');/*5*/
-INSERT INTO `froms`(`region_state`, `country`) VALUES ('CA','USA');/*6*/
-INSERT INTO `froms`(`region_state`, `country`) VALUES ('CT','USA');/*7*/
+INSERT INTO `froms`(`region_state`, `country`,`completename`) VALUES ('GT','GT','GUATEMALA'); /*1*/
+INSERT INTO `froms`(`region_state`, `country`,`completename`) VALUES ('NY','USA','UNITED STATES');/*2*/
+INSERT INTO `froms`(`region_state`, `country`,`completename`) VALUES ('FX','USA','UNITED STATES');/*3*/
+INSERT INTO `froms`(`region_state`, `country`,`completename`) VALUES ('AL','USA','UNITED STATES');/*4*/
+INSERT INTO `froms`(`region_state`, `country`,`completename`) VALUES ('PA','USA','UNITED STATES');/*5*/
+INSERT INTO `froms`(`region_state`, `country`,`completename`) VALUES ('CA','USA','UNITED STATES');/*6*/
+INSERT INTO `froms`(`region_state`, `country`,`completename`) VALUES ('CT','USA','UNITED STATES');/*7*/
 
 INSERT INTO `address`(`address`, `city`, `postal_code`, `id_from`) VALUES ('1 MAPLE ST','NEW YORK HILLS','10080','2');
 

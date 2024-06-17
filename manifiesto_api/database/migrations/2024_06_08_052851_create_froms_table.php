@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('region_state');
             $table->string('country');
+            $table->string('completename');
         });
     }
 

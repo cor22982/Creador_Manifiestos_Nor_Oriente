@@ -22,4 +22,8 @@ Route::controller(ControlPackage::class)->group(function () {
     Route::get('/manifiesto', 'index');
     Route::get('/package/{hawb}', 'show');
     Route::put('/package/{codigo}', 'update');
+    Route::delete('/package/{hawb}', 'destroy');
+    Route::get('/printall', 'printall');
+    Route::post('/filter-packages-by-hawb', 'printlist');
+    Route::get('/printone/{hawb}', 'printone');
 });
