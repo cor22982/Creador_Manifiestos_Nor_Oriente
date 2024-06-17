@@ -20,4 +20,6 @@ Route::controller(ControlPackage::class)->group(function () {
     Route::post('/insert_manifest', 'store_manifest');
     Route::post('/insert_package', 'store');
     Route::get('/manifiesto', 'index');
+    Route::get('/package/{hawb}', 'show');
+    Route::put('/package/{codigo}', 'update');
 });

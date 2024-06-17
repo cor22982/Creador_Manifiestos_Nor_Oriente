@@ -24,4 +24,11 @@ class Package extends Model
         'atendend',
         'bag'
     ];
+    protected $primaryKey = 'hawb';
+
+
+    public $incrementing = false;
+
+
+    protected $keyType = 'string';
 }
