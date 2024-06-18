@@ -364,4 +364,74 @@ class ControlPackage extends Controller
             return response()->json(['error' => 'No se encontró el paquete'], 500);
         }
     }
+
+    public function manifiesto_nororiente () {
+        $packages = Package::join('clients as shipper', 'packages.shipper', '=', 'shipper.name')
+                            ->join('clients as consing', 'packages.consing', '=', 'consing.name')
+                            ->join('addresses as add_ship', 'shipper.id_address', '=', 'add_ship.id')
+                            ->join('addresses as add_consg', 'consing.id_address', '=', 'add_consg.id')
+                            ->join('froms as ship_from', 'add_ship.id_from', '=', 'ship_from.id')
+                            ->join('froms as cosg_from', 'add_consg.id_from', '=', 'cosg_from.id')
+                            ->join('manifests', 'manifests.code', '=', 'packages.manifest')
+                            ->select(
+                                'packages.hawb as hawb',
+                                'manifests.origin',
+                                'manifests.destiny',
+                                'packages.pieces as piezas',
+                                'packages.weight_kg as peso',
+                                'packages.shipper as nombre_shipper',
+                                'add_ship.address as direccion_shipper',
+                                DB::raw("CONCAT(add_ship.city, ' - ',ship_from.completename) as ciudad_shipper"),
+                                'ship_from.region_state as estado_region',
+                                'ship_from.country as pais_shipper',
+                                'packages.consing as nombre_consignatario',
+                                'add_consg.address as direccion_consignatario',
+                                'add_consg.city as ciudad_consignatario',
+                                'cosg_from.region_state as estado',
+                                'cosg_from.country as pais_consignatario',
+                                'add_consg.postal_code as codigo_postal',
+                                'packages.description_english as contenido',
+                                'packages.bag as bag'
+                                )
+                            ->get();
+        return $packages;              
+    }
+
+    public function manifiesto_kenny () {
+        $packages = Package::join('clients as shipper', 'packages.shipper', '=', 'shipper.name')
+                            ->join('clients as consing', 'packages.consing', '=', 'consing.name')
+                            ->join('addresses as add_ship', 'shipper.id_address', '=', 'add_ship.id')
+                            ->join('addresses as add_consg', 'consing.id_address', '=', 'add_consg.id')
+                            ->join('froms as ship_from', 'add_ship.id_from', '=', 'ship_from.id')
+                            ->join('froms as cosg_from', 'add_consg.id_from', '=', 'cosg_from.id')
+                            ->join('manifests', 'manifests.code', '=', 'packages.manifest')
+                            ->select(
+                                'manifests.siteid',
+                                'manifests.arrivalairport',
+                                'manifests.waibilloriginator',
+                                'manifests.airline_prefix',
+                                'manifests.code as awbserialnumber',
+                                'packages.hawb as houseawb',
+                                'manifests.origin as originairport',
+                                'packages.pieces',
+                                'packages.weight_kg as weight',
+                                'packages.description_english as description',
+                                'packages.shipper as shippername',
+                                'add_ship.city as shipperstreetaddress',
+                                'ship_from.completename as shippercity',
+                                'ship_from.country as shippercountry',
+                                'packages.consing as consigneename',
+                                'add_consg.address as consigneestreetaddress',
+                                'add_consg.city as consigneecity',
+                                'cosg_from.region_state as consigneestateorprovince',
+                                'add_consg.postal_code as consigneepostalcode',
+                                'cosg_from.country as consigneecountry',
+                                'consing.telephone as consigneetelephone',
+                                'ship_from.country as countryoforigin',
+                                'packages.custom_value as customsvalue',
+                                'packages.bag as bag'
+                                    )
+                                ->get();
+        return $packages;
+    }
 }
