@@ -117,6 +117,7 @@ class ControlPackage extends Controller
             $package->bag = $request->bag;
             $package->save();
         }catch (\Exception $e) {
+            Log::error('Error fetching package: ' . $e->getMessage());
             // Capturar cualquier excepción no esperada
             return response()->json(['error' => 'Ha ocurrido un error al procesar la solicitud'], 500);
         }
@@ -433,5 +434,27 @@ class ControlPackage extends Controller
                                     )
                                 ->get();
         return $packages;
+    }
+
+    public function kg_sum () {
+        $packages = Package::select(DB::raw('SUM(weight_kg) as total'))
+                            ->get();
+        return $packages;    
+    }
+    public function data_newyork(){
+        $packages = Package::where('hawb', 'NOT LIKE', '%M%')
+                    ->select(
+                        'packages.bag as bulto',
+                        'packages.hawb as paquete',
+                        'packages.weight_kg as peso'
+                        )
+                    ->get();
+        $totalWeight = Package::where('hawb', 'NOT LIKE', '%M%')
+                            ->sum('weight_kg');
+        
+        return response () ->json([
+            'packages' => $packages,
+            'total' => $totalWeight
+        ]);
     }
 }

@@ -28,4 +28,6 @@ Route::controller(ControlPackage::class)->group(function () {
     Route::get('/printone/{hawb}', 'printone');
     Route::get('/manifiesto_nororiente', 'manifiesto_nororiente');
     Route::get('/manifiesto_kenny', 'manifiesto_kenny');
+    Route::get('/sum_kg','kg_sum');
+    Route::get('/newyork_data','data_newyork');
 });
