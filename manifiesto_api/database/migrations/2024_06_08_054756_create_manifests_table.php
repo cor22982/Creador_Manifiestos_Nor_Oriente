@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('manifests', function (Blueprint $table) {
             $table->string('code')->primary();
-            $table->string('siteid');
-            $table->string('arrivalairport');
-            $table->string('waibilloriginator');
-            $table->string('origin');
-            $table->string('destiny');
-            $table->string('airline_prefix');
-            $table->date('date');
+            $table->string('siteid')->default('23');
+            $table->string('arrivalairport')->default('JFK');
+            $table->string('waibilloriginator')->default('F703');
+            $table->string('origin')->default('GUA');
+            $table->string('destiny')->default('JFK');
+            $table->string('airline_prefix')->default('202');
+            $table->date('date')->default(DB::raw('CURRENT_DATE'));
         });
     }
 
