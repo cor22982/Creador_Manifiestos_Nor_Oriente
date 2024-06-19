@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('hawb')->primary();
             $table->string('manifest');
             $table->foreign('manifest')->references('code')->on('manifests')->onDelete('cascade');
-            $table->integer('pieces');
+            $table->integer('pieces')->default(1);
             $table->decimal('weight_kg', 10, 2);
             $table->decimal('weight_lb', 10, 2);
             $table->string('description_english');
