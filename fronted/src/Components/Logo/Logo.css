@@ -1,0 +1,20 @@
+.logo {
+  position: relative;
+  opacity: 0; 
+  animation: fadeInOut 2s ease forwards;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0; /* Comienza con opacidad 0 (oculto) */
+  }
+  25% {
+    opacity: 1; /* Aparece completamente */
+  }
+  75% {
+    opacity: 1; /* Se mantiene visible */
+  }
+  100% {
+    opacity: 0; /* Desaparece completamente */
+  }
+}
