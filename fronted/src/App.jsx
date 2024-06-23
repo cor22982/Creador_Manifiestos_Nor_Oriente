@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './App.css'
 import Logo from '@components/Logo'; 
-import PopUp from '@components/PopUp';
+import Manifiesto from './PopUps/Manifiesto/Manifiesto';
 function App() {
   const [showLogo, setShowLogo] = useState(true);
-  const [showpop, setShowpop] = useState(false);
+  
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowLogo(false);
@@ -15,10 +15,9 @@ function App() {
 
   return (
     <div>
-      <button onClick={()=> setShowpop(true)}>ABRIR</button>
-      <PopUp trigger={showpop} setTrigger={setShowpop}>
-        <h1>HOLA POPUP</h1>
-      </PopUp>
+
+      <Manifiesto></Manifiesto>
+
     </div>
   )
 }

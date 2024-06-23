@@ -1,0 +1,11 @@
+.input-holder {
+  border: none;
+  border-bottom: 1px solid black;
+  background-clip: padding-box;
+  font-size: 18px;
+  outline: none;
+  
+}
+.input-holder:focus{
+  border-bottom: 4px solid #14588b;
+}

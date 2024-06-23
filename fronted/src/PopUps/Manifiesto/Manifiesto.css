@@ -1,0 +1,20 @@
+.manifiesto-content{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.titulo-popup{
+  font-family: 'Inter';
+  font-style: normal;
+  color: #6b6b6b;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.contenido-codigos{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 150px;
+}

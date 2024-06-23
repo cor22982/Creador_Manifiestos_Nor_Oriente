@@ -17,7 +17,7 @@
   background-color: white;
   width: 100%;
   max-width: 640px;
-  border: 2px solid black;
+  border: 3px solid black;
   display: flex;
   justify-content: center;
   animation: popupIn 0.5s ease-out;
@@ -58,4 +58,11 @@
   font-weight: bold;
   cursor: pointer;
   color: #1B75BA;
+}
+
+
+.popup-inner .closed-button:hover,
+.popup-inner .closed-button:focus {
+  color: #032946;
+  font-size: 22px;
 }
