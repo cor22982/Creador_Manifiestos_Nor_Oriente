@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './App.css'
 import Logo from '@components/Logo'; 
-import Manifiesto from './PopUps/Manifiesto/Manifiesto';
+import Inicio from './Paginacion/Inicio';
+import {CodeProvider} from '@hooks/useCode'
 function App() {
   const [showLogo, setShowLogo] = useState(true);
   
@@ -15,9 +16,12 @@ function App() {
 
   return (
     <div>
-
-      <Manifiesto></Manifiesto>
-
+      <CodeProvider>
+        {showLogo && <Logo />} 
+        {!showLogo && (
+          <Inicio></Inicio>
+          )}
+      </CodeProvider>
     </div>
   )
 }

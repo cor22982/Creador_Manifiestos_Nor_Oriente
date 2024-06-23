@@ -124,9 +124,23 @@ class ControlPackage extends Controller
     }
 
     public function store_manifest(Request $request){
-        $manifest = new Manifest();
-        $manifest -> code = $request -> code;
-        $manifest-> save();
+        try{
+            $manifest = new Manifest();
+            $manifest -> code = $request -> code;
+            $manifest-> save();
+            return response()->json([
+                'success' => true,
+                'message' => 'Manifest saved successfully',
+                'manifest' => $manifest
+            ], 200);
+        }catch (\Exception $e) {
+            Log::error('Error store manifest: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Error storing manifest',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
     public function update(Request $request, string $codigo)
