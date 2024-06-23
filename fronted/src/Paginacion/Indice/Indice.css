@@ -3,9 +3,21 @@
   height: 100vh;
   background-color: #1B75BA;
   display: grid;
-  grid-template-columns: 1fr 6fr;
+  grid-template-columns: 1fr 7fr;
   animation: fadeIn 1s ;
 }
+
+.opciones-navegacion{
+  grid-column: 1;
+  background-color: #00367E;
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding-left: 15px;
+
+}
+
 
 @keyframes fadeIn {
   from {
