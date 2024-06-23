@@ -1,0 +1,64 @@
+.contenedor {
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  background-color: transparent;
+  padding: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  margin-top: 35px;
+  align-items: center;
+  text-decoration: none;
+}
+
+.contenedor.active{
+  background-color: #E9E9E9;
+}
+
+.link-menu {
+  cursor: pointer;
+  font-size: 26px;
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+.link-menu:hover {
+  color: gray;
+}
+
+.icon {
+  width: 30px; /* Set a fixed width */
+  height: 30px; /* Set a fixed height */
+  object-fit: contain; /* Ensure the icon scales correctly */
+  color: white;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  margin-right: 20px;
+}
+
+.icon.active {
+  color: #1B75BA;
+}
+
+
+.texto-menu {
+  width: 30px; /* Set a fixed width */
+  height: 30px; /* Set a fixed height */
+  object-fit: contain; /* Ensure the icon scales correctly */
+  color: white;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  margin-right: 20px;
+  font-size: 23px;
+  font-weight: bold;
+  user-select: none;
+}
+
+.texto-menu.active {
+  color: #1B75BA;
+}
