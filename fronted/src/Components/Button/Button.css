@@ -1,0 +1,30 @@
+.button-icon{
+  font-size: 22px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  cursor: pointer;
+  color: var(--fcolor);
+  background-color: var(--tcolor);
+  padding: 14px;
+  border: 1px solid var(--bcolor);
+}
+
+.button-icon:hover,
+.button-icon:focus {
+  -webkit-animation: pulse 1s;
+          animation: pulse 1s;
+  box-shadow: 0 0 0 2em rgba(255, 255, 255, 0);
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--thovcolor);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--thovcolor);
+  }
+}
