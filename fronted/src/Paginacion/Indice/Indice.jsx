@@ -1,6 +1,8 @@
 import React from 'react'
 import './Indice.css'
 import MenuButton from '@components/MenuButton'
+import GTAdress from '../GTAdress/GTAdress';
+import USAdress from '../GTAdress/USAdress';
 import { faHome, faFile } from '@fortawesome/free-solid-svg-icons';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 function Indice() {
@@ -15,8 +17,8 @@ function Indice() {
       </div>
       <div className="interfaz">
       <Routes>
-              <Route path="/estados_unidos" element={<About />} />
-              <Route path="/guatemala" element={<Users />} />
+              <Route path="/estados_unidos" element={<USAdress/>} />
+              <Route path="/guatemala" element={<GTAdress/>} />
               <Route path="/" element={<Home />} />
               <Route path="/reports" element={<Report/>}></Route>
             </Routes>

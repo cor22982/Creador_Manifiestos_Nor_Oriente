@@ -20,11 +20,11 @@
 .interfaz{
   grid-column: 2;
   background-color: #E9E9E9;
-  border-top-left-radius: 50px;
-  border-bottom-left-radius: 50px;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
   display: grid;
   border: none;
-  padding: 20px;
+  padding-left: 30px;
 }
  
 

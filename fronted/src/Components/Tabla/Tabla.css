@@ -1,0 +1,20 @@
+th{
+  border-bottom: 2px solid #4B4B4B;
+  padding: 10px; /* Ajusta el valor según la separación deseada */
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+td{
+  font-size: 15px;
+  padding: 10px;
+  color: #565656;
+  font-weight: lighter;
+}
+
+
+table {
+  margin-left: 10px;
+}
