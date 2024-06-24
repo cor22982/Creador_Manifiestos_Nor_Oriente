@@ -52,7 +52,7 @@ const useApi = () => {
     setError(data);
   };
 
-  const llamadowithoutbody = async (metodo) => {
+  const llamadowithoutbody = async (metodo, link) => {
     const fetchOptions = {
       method: metodo,
       headers: {
