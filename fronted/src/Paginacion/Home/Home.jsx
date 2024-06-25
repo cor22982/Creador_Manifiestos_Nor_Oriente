@@ -8,7 +8,7 @@ function Home() {
     <div className="total">
       <div className="titulos" >
         <h2 className='titulo-pagina'>CREACION DE BULTOS</h2>
-        <h2 className='titulo-pagina'>{code}</h2>
+        <h2 className='titulo-pagina'>{ '202 - ' + code}</h2>
       </div>
       <div className="linea"></div>
     </div>
