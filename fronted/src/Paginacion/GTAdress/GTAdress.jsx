@@ -17,7 +17,7 @@ function GTAdress() {
   }, [])
 
   return (
-    <div className='total'>
+    <div className='total'> 
       <h2 className='titulo-pagina'>GUATEMALA DIRECCIONES</h2>
       <div className="linea"></div>
       <br></br>
