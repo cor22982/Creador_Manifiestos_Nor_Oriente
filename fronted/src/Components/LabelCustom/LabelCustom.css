@@ -3,27 +3,30 @@
   flex-direction: row;
   align-items: center;
   gap: 10px;
+  width: fit-content;
+  height: 25px;
 }
 
 .simbolo{
   font-family: 'Inter';
   font-style: normal;
   font-weight: 700;
-  font-size: 25px;
+  font-size: 20px;
   color: #056DBC;
   background-color: #D8E7F3;
   width: fit-content;
-  padding: 10px;
+  padding: 8px;
   height: fit-content;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 5px;
 }
 .titulo-label{
   font-family: 'Inter';
   font-style: normal;
   font-weight: 700;
-  font-size: 25px;
+  font-size: 20px;
   line-height: 39px;
   color: #565656;
 }
