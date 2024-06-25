@@ -38,6 +38,7 @@ function Home() {
             ></FontAwesomeIcon>
         </button>
       </div>
+      
     </div>
   )
 }
