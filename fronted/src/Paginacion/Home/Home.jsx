@@ -11,6 +11,7 @@ function Home() {
         <h2 className='titulo-pagina'>{ '202 - ' + code}</h2>
       </div>
       <div className="linea"></div>
+      <div className="informacion"></div>
     </div>
   )
 }

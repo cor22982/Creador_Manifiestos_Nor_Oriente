@@ -1,0 +1,29 @@
+.contenido-label{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.simbolo{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 25px;
+  color: #056DBC;
+  background-color: #D8E7F3;
+  width: fit-content;
+  padding: 10px;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.titulo-label{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 39px;
+  color: #565656;
+}
