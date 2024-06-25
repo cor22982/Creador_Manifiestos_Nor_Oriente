@@ -1,0 +1,6 @@
+.titulos {
+  display: flex;
+  flex-direction: row; /* Asegura que los elementos estén en una fila */
+  justify-content: space-between; /* Distribuye el espacio uniformemente entre los elementos */
+  align-items: center; /* Alinea los elementos verticalmente en el centro */
+}

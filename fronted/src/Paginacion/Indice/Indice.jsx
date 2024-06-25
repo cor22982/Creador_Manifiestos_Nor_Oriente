@@ -4,7 +4,9 @@ import MenuButton from '@components/MenuButton'
 import GTAdress from '../GTAdress/GTAdress';
 import USAdress from '../GTAdress/USAdress';
 import { faHome, faFile } from '@fortawesome/free-solid-svg-icons';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import Home from '../Home/Home';
+
 function Indice() {
   return (
     <div className='pantalla-indice'>
@@ -19,7 +21,7 @@ function Indice() {
       <Routes>
               <Route path="/estados_unidos" element={<USAdress/>} />
               <Route path="/guatemala" element={<GTAdress/>} />
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<Home/>} />
               <Route path="/reports" element={<Report/>}></Route>
             </Routes>
       </div>
@@ -28,9 +30,6 @@ function Indice() {
   )
 }
 
-function Home() {
-  return <h2>Home</h2>;
-}
 
 function About() {
   return <h2>About</h2>;
