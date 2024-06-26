@@ -44,6 +44,15 @@
   flex-direction: column  ;
   align-items: start;
   gap: 15px  ;
+  position: relative;
+}
+
+.codigo{
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 15px;
+  font-size: 42px;
 }
 
 .label-name{
@@ -97,21 +106,21 @@
 .contenedor-grande{
   display: flex;
   flex-direction: row;
-  gap: 30px;
+  gap: 10px;
 }
 
 .titulo-grande{
   font-family: 'Inter';
   font-style: normal;
   font-weight: 700;
-  font-size: 22px;
+  font-size: 17px;
 }
 
 .contenido-grande{
   font-family: 'Inter';
   font-style: normal;
-  font-size: 22px;
-  max-width: 650px;
+  font-size: 17px;
+  max-width: 500px;
   transition: font-size 0.3s ease-in-out; 
   height: 20px;
 }

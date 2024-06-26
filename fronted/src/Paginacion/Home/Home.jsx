@@ -43,6 +43,7 @@ function Home() {
       </div>
       <br></br>
       <div className="contenido-factura">
+        <h1 className='codigo'>Codigo: 1000A</h1>
         <div className="label-contenido">
           <p className='label-name'>Envia:</p>
           <p className='label-info'>MATHEW ALEXANDER CORDERO AQUINO</p>
@@ -77,11 +78,15 @@ function Home() {
           </div>
           <div className="label-grande">
             <p className='titulo-grande'>Contenido</p>
-            <p className='contenido-grande'>BREAD,CHEESE,TAMALITOS,CONDIMENTS,COOKED VEGETABLES </p>
+            <p className='contenido-grande'>BREAD,CHEESE,TAMALITOS,CONDIMENTS,COOKED VEGETABLES , BREAD , JAMON</p>
           </div>
           <div className="label-grande">
             <p className='titulo-grande'>Peso(Lb)</p>
-            <p className='contenido-grande'>55</p>
+            <h2>55</h2>
+          </div>
+          <div className="label-grande">
+            <p className='titulo-grande'>Bulto</p>
+            <h2>1</h2>
           </div>
           
         </div>
