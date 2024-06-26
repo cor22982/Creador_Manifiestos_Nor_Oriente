@@ -30,3 +30,120 @@
 .icono-boton-home:active{
   color: #7abdf0;
 }
+
+.contenido-factura{
+  width: 100%;
+  height: fit-content;
+  background: #FFFFFF;
+  border: 1px solid #4B4B4B;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  display: flex;
+  padding: 15px;
+  flex-direction: column  ;
+  align-items: start;
+  gap: 15px  ;
+}
+
+.label-name{
+  font-weight: bold;
+  font-size: 15px;
+  margin-right: 5px;
+  font-family: 'Inter';
+  font-style: normal;
+  color: #565656;
+  
+}
+
+.label-contenido{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 12px;
+
+}
+
+.label-info {
+  font-size: 15px;
+  transition: font-size 0.3s ease-in-out; 
+  position: relative;
+  display: inline-block;
+}
+
+.label-info::after {
+  content: '';
+  position: absolute;
+  left: 0%; 
+  right: -10%; 
+  bottom: -2px;
+  border-bottom: 1px solid black; 
+  transform-origin: left center;
+}
+
+.label-info:hover {
+  font-size: 19px;
+  cursor: pointer;
+}
+
+
+.telefono-fecha{
+  display: flex;
+  flex-direction: row;
+  gap: 100px;
+}
+
+.contenedor-grande{
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+}
+
+.titulo-grande{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 22px;
+}
+
+.contenido-grande{
+  font-family: 'Inter';
+  font-style: normal;
+  font-size: 22px;
+  max-width: 650px;
+  transition: font-size 0.3s ease-in-out; 
+  height: 20px;
+}
+
+.contenido-grande:hover{
+  cursor: pointer;
+  
+}
+
+.icono-boton-print{
+  background-color: transparent;
+  border: none;
+  font-size: 45px;
+  color: #065088;
+}
+
+.icono-boton-print:hover{
+  cursor: pointer;
+}
+
+.icono-boton-print:active{
+  color: #418ac2;
+}
+
+.butoon-contenido{
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.buttons-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

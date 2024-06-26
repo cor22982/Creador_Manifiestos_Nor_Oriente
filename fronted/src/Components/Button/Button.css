@@ -8,6 +8,7 @@
   background-color: var(--tcolor);
   padding: 14px;
   border: 1px solid var(--bcolor);
+  border-radius: 8px;
 }
 
 .button-icon:hover,
