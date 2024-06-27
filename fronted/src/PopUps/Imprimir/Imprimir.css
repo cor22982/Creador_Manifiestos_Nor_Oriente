@@ -1,0 +1,53 @@
+.button-icono-plus{
+  background-color: #1B75BA;
+  color: white;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  border-color: transparent;
+  cursor: pointer;
+}
+.button-icono-plus:active{
+  background-color: #114a75;
+}
+
+.codigos-imprimir{
+  display: flex;
+  flex-direction: column;
+}
+
+.button-and-input{
+  display: flex;
+  flex-direction: row;
+}
+
+.header-one{
+  display: flex;
+  flex-direction: column;
+}
+
+.print-one{
+  display: flex;
+  flex-direction: row; 
+  gap: 10px;
+}
+
+.boton-print-one{
+  width: 60px;
+  height: 90px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.contenido{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.print-array{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
