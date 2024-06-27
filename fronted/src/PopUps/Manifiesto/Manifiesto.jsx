@@ -17,7 +17,6 @@ function Manifiesto() {
     const body = { code: codigo };
     const { success } = await llamado(body, 'POST', 'http://127.0.0.1:8000/api/insert_manifest');
     if (success) {
-      console.log(success);
       setCode(codigo);
     }
   };

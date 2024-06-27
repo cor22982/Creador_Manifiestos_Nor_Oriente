@@ -8,9 +8,11 @@
   background-color: var(--tcolor);
   padding: 14px;
   border: 1px solid var(--bcolor);
+  border-radius: 8px;
 }
 
 .button-icon:hover,
+.button-icon:active,
 .button-icon:focus {
   -webkit-animation: pulse 1s;
           animation: pulse 1s;
