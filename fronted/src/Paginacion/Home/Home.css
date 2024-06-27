@@ -125,8 +125,10 @@
   height: 20px;
 }
 
+
 .contenido-grande:hover{
   cursor: pointer;
+  font-size: 19px;
   
 }
 
