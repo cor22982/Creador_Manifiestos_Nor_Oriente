@@ -10,7 +10,15 @@ import ListDisplay from '../../Components/ListDisplay/ListDisplay';
 function Imprimir({activar, setActivar}) {
   const [codigos, setCodigos] = useState('');
   const [codigo, setCodigo] = useState('');
-  const exampleList = ['Item 1', 'Item 2', 'Item 3', 'Item 4','Item 1', 'Item 2', 'Item 3', 'Item 4'];
+  const [codeList, setCodeList] = useState([]);
+
+  const addCodeToList = () => {
+    if (codigos.trim() !== '') {
+      setCodeList([...codeList, codigos]);
+      setCodigos(''); // Limpiar el input después de agregar el código
+    }
+  };
+
   return (
     <PopUp trigger={activar} setTrigger={setActivar}>
       <div className='contenido'>
@@ -22,7 +30,9 @@ function Imprimir({activar, setActivar}) {
               <InputHolder
                 value={codigos}
                 onChange={setCodigos}></InputHolder>
-              <button className='button-icono-plus'>
+              <button 
+                className='button-icono-plus'
+                onClick={addCodeToList}>
                 <FontAwesomeIcon icon={faPlus} />
               </button>
             </div>
@@ -34,7 +44,7 @@ function Imprimir({activar, setActivar}) {
               color='#1B75BA'
               hovercolor='#306A95'/>
           </div>
-          <ListDisplay items={exampleList} />
+          <ListDisplay items={codeList} />
         </div>
         <br></br>
         <div className="print-one">
