@@ -449,11 +449,35 @@ class ControlPackage extends Controller
                                 ->get();
         return $packages;
     }
+ 
+    public function kg_sum() {
+        $kg = Package::select(DB::raw('SUM(weight_kg) as kg'))->first();
+        $lb = Package::select(DB::raw('SUM(weight_lb) as lb'))->first();
+        $no = Package::select('bag')
+                            ->orderBy('bag', 'desc')
+                            ->first();
+        $frioCountSubquery = DB::table('packages')
+                            ->select('bag')
+                            ->where('type_bag', 'FRIO')
+                            ->groupBy('bag');
+        $secoCountSubquery = DB::table('packages')
+                            ->select('bag')
+                            ->where('type_bag', 'SECO')
+                            ->groupBy('bag');
+        $frioCount = DB::table(DB::raw("({$frioCountSubquery->toSql()}) as subquery"))
+                            ->mergeBindings($frioCountSubquery)
+                            ->count();
+        $secoCount = DB::table(DB::raw("({$secoCountSubquery->toSql()}) as subquery"))
+                            ->mergeBindings($secoCountSubquery)
+                            ->count();
 
-    public function kg_sum () {
-        $packages = Package::select(DB::raw('SUM(weight_kg) as total'))
-                            ->get();
-        return $packages;    
+        return response()->json([
+            'kg' => $kg->kg,
+            'lb' => $lb->lb,
+            'no' => $no->bag,
+             'frios' => $frioCount,
+             'seco' => $secoCount
+        ]);
     }
     public function data_newyork(){
         $packages = Package::where('hawb', 'NOT LIKE', '%M%')
