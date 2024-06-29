@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Home.css';
 import useCode from '@hooks/useCode';
 import LabelCustom from '@components/LabelCustom';
@@ -7,14 +7,37 @@ import { faDownload, faPrint, faFilePen, faPen, faTrash } from '@fortawesome/fre
 import Button from '@components/Button';
 import Modificar from '@popups/Modificar';
 import Eliminar from '@popups/Eliminar';
-import Imprimir from '@popups/Imprimir';
+import Imprimir from '@popups/Imprimir'; 
 import Registrar from '@popups/Registrar';
+import useApi from '@hooks/useApi';
+import DocGenerator from './DocGenerator/DocGenerator';
 function Home() {
   const { code } = useCode();
+  const { llamadowithoutbody } = useApi();
+  const [headerData, setHeaderData] = useState({});
   const fecha = new Date();
   const fechaFormateada = fecha.toLocaleDateString();
   const [popupState, setPopupState] = useState({ modificar: false, eliminar: false, imprimir: false, registrar: false });
   const togglePopup = (popup) => setPopupState({ ...popupState, [popup]: !popupState[popup] });
+  const calldata = async () => {
+    const respuesta = await llamadowithoutbody('GET', 'http://127.0.0.1:8000/api/data');
+    setHeaderData(respuesta);
+  }
+
+  useEffect(() => {    
+    calldata();
+  }, [])
+
+  const dataGenerate = () => {
+    if (headerData && headerData.no !== undefined) {
+      DocGenerator(headerData);
+    } else {
+      console.error('El valor de headerData.no es indefinido o no válido.');
+      // Puedes mostrar un mensaje de error o manejar de otra manera el caso de datos no válidos.
+    }
+  }
+  
+
   return (
     <div className="total">
       <div className="titulos">
@@ -24,10 +47,11 @@ function Home() {
       <div className="linea"></div>
       <br></br>
       <div className="informacion">
-        {['35', '1000', '35', '35', '2204.62'].map((value, index) => (
+        {[headerData.no, headerData.kg, headerData.frios, headerData.seco, headerData.lb].map((value, index) => (
           <LabelCustom key={index} titule={value} simbol={['No', 'KG', 'Frios', 'Secos', 'LB'][index]} />
         ))}
-        <button className='icono-boton-home'>
+        <button className='icono-boton-home'
+          onClick={dataGenerate}>
           <FontAwesomeIcon icon={faDownload} />
         </button>
       </div>
