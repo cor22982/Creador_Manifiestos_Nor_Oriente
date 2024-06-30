@@ -121,8 +121,9 @@
   font-size: 11px;
   border: 1px solid #2f75b5;
   padding: 0;
-
 }
+
+
 
 .paquete{
   font-family: Arial, sans-serif;
@@ -133,16 +134,18 @@
 .contenido{
   font-family: Arial, sans-serif;
   font-size: 18px;
-  height: fit-content;
+  height: max-content;
+  display: flex;
 }
 
 .info-table {
   margin-top: 7px;
   border-collapse: collapse; 
   width: 100%; 
+  margin-left: 0px;
 }
 
-td, th {
+td {
   border: 1px solid #2f75b5; 
 }
 
@@ -178,3 +181,14 @@ td, th {
   margin: 0;
   align-items: center;
 }
+
+.recuadro{
+  position: absolute;
+  width: 750px;
+  top: 0;
+  margin-top: 10px;
+}
+
+
+
+

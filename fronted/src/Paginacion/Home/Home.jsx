@@ -11,7 +11,10 @@ import Imprimir from '@popups/Imprimir';
 import Registrar from '@popups/Registrar';
 import useApi from '@hooks/useApi';
 import DocGenerator from './DocGenerator/DocGenerator';
-import Baunche from './ExcelGenerator/Baunche';
+import Bauncher from '../../Components/Bauncher/Bauncher';
+import { useRef } from "react";
+import { useReactToPrint } from "react-to-print";
+
 function Home() {
   const { code } = useCode();
   const { llamadowithoutbody } = useApi();
@@ -38,13 +41,17 @@ function Home() {
     }
   }
 
-  const generetaBauncher = () => {
-    Baunche();
-  }
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current
+  });
   
 
   return (
     <div className="total">
+      <div style={{display: 'none'}}>
+        <Bauncher ref={componentRef}></Bauncher>
+      </div>
       
       <div className="titulos">
         <h2 className='titulo-pagina'>CREACION DE BULTOS</h2>
@@ -109,7 +116,7 @@ function Home() {
             </div>
           ))}
           <button className='icono-boton-print'
-              onClick={generetaBauncher}>
+              onClick={handlePrint}>
             <FontAwesomeIcon icon={faPrint} />
           </button>
         </div>

@@ -6,11 +6,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faPrint } from '@fortawesome/free-solid-svg-icons';
 import Button from '@components/Button';
 import ListDisplay from '../../Components/ListDisplay/ListDisplay';
+import { useRef } from "react";
+import { useReactToPrint } from "react-to-print";
 
 function Imprimir({activar, setActivar}) {
   const [codigos, setCodigos] = useState('');
   const [codigo, setCodigo] = useState('');
   const [codeList, setCodeList] = useState([]);
+
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current
+  });
 
   const addCodeToList = () => {
     if (codigos.trim() !== '') {
@@ -22,6 +29,7 @@ function Imprimir({activar, setActivar}) {
   return (
     <PopUp trigger={activar} setTrigger={setActivar}>
       <div className='contenido'>
+
         <h2>IMPRIMIR</h2>
         <div className="print-array">
           <div className='codigos-imprimir'>
@@ -63,7 +71,8 @@ function Imprimir({activar, setActivar}) {
               titule='IMPRIMIR'
               fontcolor='white'
               color='#1B75BA'
-              hovercolor='#306A95'/>
+              hovercolor='#306A95'
+              onclick={handlePrint}/>
           </div>
           
         </div>

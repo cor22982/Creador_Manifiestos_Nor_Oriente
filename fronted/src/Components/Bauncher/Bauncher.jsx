@@ -1,8 +1,9 @@
-import React from 'react'
-import './Bauncher.css'
-function Bauncher() {
+import React, { forwardRef } from 'react';
+import './Bauncher.css';
+
+const Bauncher = forwardRef((props, ref) => {
   return (
-    <div  className='recuadro'>
+    <div className='recuadro' ref={ref}>
       <div className='bauncher-contenido'>
         <div className='label-display'>
           <p className='label-name'>Envia: </p>
@@ -42,23 +43,23 @@ function Bauncher() {
         <table className='info-table'>
           <thead>
             <tr>
-              <th className='head' style={{width: '125px'}}>DESCRIPCION</th>
-              <th className='head' style={{width: '300px'}}>CONTENIDO</th>
-              <th className='head' style={{width: '100px'}}>PESO</th>
+              <th className='head' style={{ width: '125px' }}>DESCRIPCION</th>
+              <th className='head' style={{ width: '300px' }}>CONTENIDO</th>
+              <th className='head' style={{ width: '90px' }}>PESO</th>
               <th className='head'>CODIGO</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td className='paquete'>1PAQ</td>
-              <td className='contenido'>ROPA, DOCUMENTOS, SUPLEMENTO VITAMINICO </td>
-              <td>
+              <td className='contenido' style={{height: '90px'}}>ROPA, DOCUMENTOS, SUPLEMENTO VITAMINICO</td>
+              <td >
                 <div className='peso-weight'>
                   <p className='peso-cantidad'>40</p>
                   <p className='peso-cantidad'>lb</p>
                 </div>
               </td>
-              <td>
+              <td >
                 <div className='peso-weight'>
                   <p className='titulo'>702K</p>
                   <p className='titulo-2'>SECO</p>
@@ -78,9 +79,9 @@ function Bauncher() {
           </div>
         </div>
       </div>
-      <p className='foot'>NOTA: Si hay un retraso en la Aerolínea, no somos responsables por descomposición y por objetos de valor no </p>
+      <p className='foot'>NOTA: Si hay un retraso en la Aerolínea, no somos responsables por descomposición y por objetos de valor no</p>
     </div>
-  )
-}
+  );
+});
 
-export default Bauncher
+export default Bauncher;
