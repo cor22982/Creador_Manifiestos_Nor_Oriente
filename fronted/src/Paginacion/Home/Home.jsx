@@ -11,6 +11,7 @@ import Imprimir from '@popups/Imprimir';
 import Registrar from '@popups/Registrar';
 import useApi from '@hooks/useApi';
 import DocGenerator from './DocGenerator/DocGenerator';
+import Baunche from './ExcelGenerator/Baunche';
 function Home() {
   const { code } = useCode();
   const { llamadowithoutbody } = useApi();
@@ -36,10 +37,15 @@ function Home() {
       // Puedes mostrar un mensaje de error o manejar de otra manera el caso de datos no válidos.
     }
   }
+
+  const generetaBauncher = () => {
+    Baunche();
+  }
   
 
   return (
     <div className="total">
+      
       <div className="titulos">
         <h2 className='titulo-pagina'>CREACION DE BULTOS</h2>
         <h2 className='titulo-pagina' style={{ fontSize: '20px' }}>{'202 - ' + code}</h2>
@@ -102,7 +108,8 @@ function Home() {
               <p className='label-info'>{info}</p>
             </div>
           ))}
-          <button className='icono-boton-print'>
+          <button className='icono-boton-print'
+              onClick={generetaBauncher}>
             <FontAwesomeIcon icon={faPrint} />
           </button>
         </div>
@@ -130,6 +137,7 @@ function Home() {
       <Eliminar activar={popupState.eliminar} setActivar={() => togglePopup('eliminar')} />
       <Imprimir activar={popupState.imprimir} setActivar={() => togglePopup('imprimir')} />
       <Registrar activar={popupState.registrar} setActivar={() => togglePopup('registrar')} />
+      
     </div>
   );
 }
