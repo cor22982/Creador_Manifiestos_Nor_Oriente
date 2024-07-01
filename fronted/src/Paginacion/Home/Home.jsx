@@ -171,7 +171,8 @@ function Home() {
         activar={popupState.imprimir} 
         setActivar={() => togglePopup('imprimir')} 
         codigo={codigo}
-        setCodigo={setCodigo}/>
+        setCodigo={setCodigo}
+        sendtoPrint={handlePrintTwice}/>
       <Registrar activar={popupState.registrar} setActivar={() => togglePopup('registrar')} />
     </div>
   );

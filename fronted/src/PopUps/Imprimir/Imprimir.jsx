@@ -8,7 +8,7 @@ import Button from '@components/Button';
 import ListDisplay from '../../Components/ListDisplay/ListDisplay';
 
 
-function Imprimir({activar, setActivar, codigo, setCodigo}) {
+function Imprimir({activar, setActivar, codigo, setCodigo, sendtoPrint}) {
   const [codigos, setCodigos] = useState('');
   const [codeList, setCodeList] = useState([]);
   const addCodeToList = () => {
@@ -17,6 +17,11 @@ function Imprimir({activar, setActivar, codigo, setCodigo}) {
       setCodigos(''); // Limpiar el input después de agregar el código
     }
   };
+
+  const printone = () => {
+    sendtoPrint();
+    setActivar(false);
+  }
 
   return (
     <PopUp trigger={activar} setTrigger={setActivar}>
@@ -63,7 +68,8 @@ function Imprimir({activar, setActivar, codigo, setCodigo}) {
               titule='IMPRIMIR'
               fontcolor='white'
               color='#1B75BA'
-              hovercolor='#306A95'/>
+              hovercolor='#306A95'
+              onclick={printone}/>
           </div>
           
         </div>
