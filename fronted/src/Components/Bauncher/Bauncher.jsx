@@ -1,43 +1,45 @@
 import React, { forwardRef } from 'react';
 import './Bauncher.css';
 
-const Bauncher = forwardRef((props, ref) => {
+const Bauncher = forwardRef(({ info, codigo }, ref) => {
+  const fecha = new Date();
+  const fechaFormateada = fecha.toLocaleDateString();
   return (
     <div className='recuadro' ref={ref}>
       <div className='bauncher-contenido'>
         <div className='label-display'>
           <p className='label-name'>Envia: </p>
           <div className='descripcion-label'>
-            <p className='contained'>OLAYA DUARTE</p>
-            <p className='bulto'>BULTO # 18</p>
+            <p className='contained'>{info?.envia || ''}</p>
+            <p className='bulto'>BULTO # {info?.bulto || ''}</p>
           </div>
         </div>
         <div className='label-display'>
           <p className='label-name'>Direccion: </p>
           <div className='descripcion-label'>
-            <p className='contained'>11 CALLE 1-74 ZONA 1 CHIQUIMULA - GUATEMALA</p>
+            <p className='contained'>{`${info?.direccion_envia || ''} ${info?.ciudad_envia || ''}`}</p>
           </div>
         </div>
         <div className='label2-display'>
           <p className='label-name'>Recibe: </p>
           <div className='descripcion-label'>
-            <p className='contained'>AMILCAR PEREZ</p>
+            <p className='contained'>{info?.recibe || ''}</p>
           </div>
         </div>
         <div className='label-display'>
           <p className='label-name'>Direccion: </p>
           <div className='descripcion-label'>
-            <p className='contained'>89 MARVIN AVE BREWSTER NY 10509</p>
+            <p className='contained'>{`${info?.direccion_recibe || ''} ${info?.ciudad_recibe || ''} ${info?.region || ''} ${info?.codigo_postal || ''}`}</p>
           </div>
         </div>
         <div className='label2-display'>
           <p className='label-name'>Tel: </p>
           <div className='descripcion-label'>
-            <p className='contained'>9142994836</p>
+            <p className='contained'>{info?.telefono_recibe}</p>
           </div>
           <p className='label-name-2'>Fecha: </p>
           <div className='descripcion-label-2'>
-            <p className='contained'>29/06/2024</p>
+            <p className='contained'>{fechaFormateada}</p>
           </div>
         </div>
         <table className='info-table'>
@@ -51,18 +53,18 @@ const Bauncher = forwardRef((props, ref) => {
           </thead>
           <tbody>
             <tr>
-              <td className='paquete'>1PAQ</td>
-              <td className='contenido' style={{height: '90px'}}>ROPA, DOCUMENTOS, SUPLEMENTO VITAMINICO</td>
-              <td >
+              <td className='paquete'>{info?.descripcion || ''}</td>
+              <td className='contenido' style={{height: '90px'}}>{info?.contenido?.toUpperCase() || ''}</td>
+              <td className='ctd'>
                 <div className='peso-weight'>
-                  <p className='peso-cantidad'>40</p>
+                  <p className='peso-cantidad'>{info?.peso?.split('.')[0] || ''}</p>
                   <p className='peso-cantidad'>lb</p>
                 </div>
               </td>
-              <td >
+              <td className='ctd'>
                 <div className='peso-weight'>
-                  <p className='titulo'>702K</p>
-                  <p className='titulo-2'>SECO</p>
+                  <p className='titulo'>{codigo || ''}</p>
+                  <p className='titulo-2'>{info?.tipo || ''}</p>
                 </div>
               </td>
             </tr>
@@ -71,11 +73,11 @@ const Bauncher = forwardRef((props, ref) => {
         <div className='footer-data'>
           <p className='label-name'>Atendido por:</p>
           <div className='descripcion-label-3'>
-            <p className='contained-3'>SULI</p>
+            <p className='contained-3'>{info?.atendido || ''}</p>
           </div>
           <p className='label-name-3'>Oficina:</p>
           <div className='descripcion-label-4'>
-            <p className='contained-3'>CHIQUIMULA - GUATEMALA</p>
+            <p className='contained-3'>{info?.ciudad_envia || ''}</p>
           </div>
         </div>
       </div>

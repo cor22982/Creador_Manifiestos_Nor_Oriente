@@ -128,6 +128,7 @@
 .paquete{
   font-family: Arial, sans-serif;
   font-size: 30px;
+  border: 1px solid #2f75b5; 
 }
 
 
@@ -136,6 +137,7 @@
   font-size: 18px;
   height: max-content;
   display: flex;
+  border: 1px solid #2f75b5; 
 }
 
 .info-table {
@@ -145,9 +147,7 @@
   margin-left: 0px;
 }
 
-td {
-  border: 1px solid #2f75b5; 
-}
+
 
 .peso-weight{
   display: flex;
@@ -157,6 +157,9 @@ td {
   
 }
 
+.ctd{
+  border: 1px solid #2f75b5; 
+}
 .peso-cantidad{
   font-family: Arial, sans-serif;
   font-size: 40px;

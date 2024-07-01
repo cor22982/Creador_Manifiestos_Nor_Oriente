@@ -159,3 +159,30 @@
   justify-content: space-between;
 }
 
+@media print {
+  .bauncher-print {
+    page-break-inside: avoid;
+    page-break-after: auto;
+    page-break-before: auto;
+    max-height: fit-content; /* Ajustar según sea necesario */
+    max-width: fit-content;  /* Ajustar según sea necesario */
+  }
+
+  .total {
+    display: none;
+  }
+}
+
+
+.bauncher-print{
+  height: fit-content;
+  width: fit-content;
+  display: none;
+}
+
+@media print {
+  html, body {
+    height: initial !important;
+    overflow: initial !important;
+  }
+}
