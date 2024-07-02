@@ -7,7 +7,7 @@ import { faHome, faFile } from '@fortawesome/free-solid-svg-icons';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Home from '../Home/Home';
 
-function Indice() {
+function Indice() { 
   return (
     <div className='pantalla-indice'>
        <Router>
@@ -31,13 +31,6 @@ function Indice() {
 }
 
 
-function About() {
-  return <h2>About</h2>;
-}
-
-function Users() {
-  return <h2>Users</h2>;
-}
 
 function Report() {
   return <h2>Report</h2>;

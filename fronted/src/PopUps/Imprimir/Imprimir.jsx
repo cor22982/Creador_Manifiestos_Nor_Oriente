@@ -7,11 +7,8 @@ import { faPlus, faPrint } from '@fortawesome/free-solid-svg-icons';
 import Button from '@components/Button';
 import ListDisplay from '../../Components/ListDisplay/ListDisplay';
 
-function Imprimir({activar, setActivar}) {
-  const [codigos, setCodigos] = useState('');
-  const [codigo, setCodigo] = useState('');
-  const [codeList, setCodeList] = useState([]);
 
+function Imprimir({activar, setActivar, codigo, setCodigo, sendtoPrint, codigos, setCodigos, codeList, setCodeList, printList}) {
   const addCodeToList = () => {
     if (codigos.trim() !== '') {
       setCodeList([...codeList, codigos]);
@@ -19,9 +16,21 @@ function Imprimir({activar, setActivar}) {
     }
   };
 
+  const printone = () => {
+    sendtoPrint();
+    setActivar(false);
+  }
+
+  const printalist = async() => {
+    await printList();
+    setCodeList([]);
+    setActivar(false);
+  }
+
   return (
     <PopUp trigger={activar} setTrigger={setActivar}>
-      <div className='contenido'>
+      <div className='contenido-print'>
+
         <h2>IMPRIMIR</h2>
         <div className="print-array">
           <div className='codigos-imprimir'>
@@ -42,7 +51,8 @@ function Imprimir({activar, setActivar}) {
               titule='IMPRIMIR VARIOS'
               fontcolor='white'
               color='#1B75BA'
-              hovercolor='#306A95'/>
+              hovercolor='#306A95'
+              onclick={printalist}/>
           </div>
           <ListDisplay items={codeList} />
         </div>
@@ -63,7 +73,8 @@ function Imprimir({activar, setActivar}) {
               titule='IMPRIMIR'
               fontcolor='white'
               color='#1B75BA'
-              hovercolor='#306A95'/>
+              hovercolor='#306A95'
+              onclick={printone}/>
           </div>
           
         </div>

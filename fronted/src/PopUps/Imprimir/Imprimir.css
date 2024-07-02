@@ -39,7 +39,7 @@
   align-items: flex-end;
 }
 
-.contenido{
+.contenido-print{
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Home.css';
 import useCode from '@hooks/useCode';
 import LabelCustom from '@components/LabelCustom';
@@ -7,16 +7,101 @@ import { faDownload, faPrint, faFilePen, faPen, faTrash } from '@fortawesome/fre
 import Button from '@components/Button';
 import Modificar from '@popups/Modificar';
 import Eliminar from '@popups/Eliminar';
-import Imprimir from '@popups/Imprimir';
+import Imprimir from '@popups/Imprimir'; 
 import Registrar from '@popups/Registrar';
+import useApi from '@hooks/useApi';
+import DocGenerator from './DocGenerator/DocGenerator';
+import Bauncher from '../../Components/Bauncher/Bauncher';
+import { useReactToPrint } from "react-to-print";
+
 function Home() {
   const { code } = useCode();
+  const { llamadowithoutbody } = useApi();
+  const { llamado } = useApi();
+  const [headerData, setHeaderData] = useState({});
   const fecha = new Date();
   const fechaFormateada = fecha.toLocaleDateString();
   const [popupState, setPopupState] = useState({ modificar: false, eliminar: false, imprimir: false, registrar: false });
   const togglePopup = (popup) => setPopupState({ ...popupState, [popup]: !popupState[popup] });
+  const [codigo, setCodigo] = useState(localStorage.getItem('codigo') || '');
+  const [infoCodigo, setInfoCodigo] = useState({});
+  const [codigos, setCodigos] = useState('');
+  const [codeList, setCodeList] = useState([]);
+  useEffect(() => {
+    localStorage.setItem('codigo', codigo);
+  }, [codigo]);
+
+  const setInfo = async() => {
+    try {
+      if (codigo) {
+        const data = await llamadowithoutbody('GET', `http://127.0.0.1:8000/api/printone/${codigo}`);
+        setInfoCodigo(data);
+      }
+    } catch {
+      console.log("no se obtuvo");
+    }
+  };
+  useEffect(() => {
+    setInfo();
+  }, [codigo]);
+
+  const calldata = async () => {
+    const respuesta = await llamadowithoutbody('GET', 'http://127.0.0.1:8000/api/data');
+    setHeaderData(respuesta);
+  };
+
+  useEffect(() => {
+    calldata();
+  }, []);
+
+  const dataGenerate = () => {
+    if (headerData && headerData.no !== undefined) {
+      DocGenerator(headerData);
+    } else {
+      console.error('El valor de headerData.no es indefinido o no válido.');
+    }
+  };
+
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current
+  });
+
+  const handlePrintTwice = async () => {
+    await setInfo();
+    await handlePrint();
+    setTimeout(async () => {
+      await handlePrint();
+    }, 1000);
+  };
+
+
+  //printlist
+  const component2Ref = useRef();
+  const handlePrintList = useReactToPrint({
+    content: () => component2Ref.current
+  });
+
+  const printlist =  async() => {
+    try{
+      const body = {hawb_codes:codeList};
+      const { packages }= await llamado(body, 'POST', 'http://127.0.0.1:8000/api/printlist')
+      console.log(packages)
+    }catch{
+      console.log("error")
+    }
+
+  }
+
   return (
     <div className="total">
+      <div className="bauncher-print">
+        <Bauncher 
+          ref={componentRef} 
+          className="bauncher-print" 
+          info={infoCodigo} />
+      </div>
+      
       <div className="titulos">
         <h2 className='titulo-pagina'>CREACION DE BULTOS</h2>
         <h2 className='titulo-pagina' style={{ fontSize: '20px' }}>{'202 - ' + code}</h2>
@@ -24,21 +109,21 @@ function Home() {
       <div className="linea"></div>
       <br></br>
       <div className="informacion">
-        {['35', '1000', '35', '35', '2204.62'].map((value, index) => (
+        {[headerData.no, headerData.kg, headerData.frios, headerData.seco, headerData.lb].map((value, index) => (
           <LabelCustom key={index} titule={value} simbol={['No', 'KG', 'Frios', 'Secos', 'LB'][index]} />
         ))}
-        <button className='icono-boton-home'>
+        <button className='icono-boton-home' onClick={dataGenerate}>
           <FontAwesomeIcon icon={faDownload} />
         </button>
       </div>
       <br></br>
       <div className="contenido-factura">
-        <h1 className='codigo'>Codigo: 1000A</h1>
+        <h1 className='codigo'>Codigo: { codigo || '' }</h1>
         {[
-          ['Envia:', 'MATHEW ALEXANDER CORDERO AQUINO'],
-          ['Direccion:', '20 CALLE Y 13 AVENIDA ZONA 0'],
-          ['Recibe:', 'BLANCA BERGANZA'],
-          ['Direccion Recibe:', '1 MAPLE ST NEW YORK HILLS NY 10080']
+          ['Envia:', infoCodigo?.envia || ''],
+          ['Direccion:', infoCodigo?.direccion_envia || ''],
+          ['Recibe:', infoCodigo?.recibe || ''],
+          ['Direccion Recibe:', infoCodigo?.direccion_recibe || '']
         ].map(([label, info], index) => (
           <div key={index} className="label-contenido">
             <p className='label-name'>{label}</p>
@@ -48,7 +133,7 @@ function Home() {
         <div className="telefono-fecha">
           <div className="label-contenido">
             <p className='label-name'>Telefono:</p>
-            <p className='label-info'>3855073371</p>
+            <p className='label-info'>{infoCodigo?.telefono_recibe || ''}</p>
           </div>
           <div className="label-contenido">
             <p className='label-name'>Fecha:</p>
@@ -57,10 +142,10 @@ function Home() {
         </div>
         <div className="contenedor-grande">
           {[
-            ['Tipo', 'SECO'],
-            ['Contenido', 'BREAD,CHEESE,TAMALITOS,CONDIMENTS,COOKED VEGETABLES , BREAD , JAMON'],
-            ['Peso(Lb)', '55'],
-            ['Bulto', '1']
+            ['Tipo', infoCodigo?.tipo || ''],
+            ['Contenido', infoCodigo?.contenido?.toUpperCase() || ''],
+            ['Peso(Lb)', infoCodigo?.peso || ''],
+            ['Bulto', infoCodigo?.bulto || '']
           ].map(([titulo, contenido], index) => (
             <div key={index} className="label-grande">
               <p className='titulo-grande'>{titulo}</p>
@@ -70,15 +155,15 @@ function Home() {
         </div>
         <div className="butoon-contenido">
           {[
-            ['Atendido por:', 'CHIQUIMULA - GUATEMALA'],
-            ['Oficina:', 'JACKELINE']
+            ['Atendido por:', infoCodigo?.ciudad_envia || ''],
+            ['Oficina:', infoCodigo?.atendido?.toUpperCase() || '']
           ].map(([label, info], index) => (
             <div key={index} className="label-contenido">
               <p className='label-name'>{label}</p>
               <p className='label-info'>{info}</p>
             </div>
           ))}
-          <button className='icono-boton-print'>
+          <button className='icono-boton-print' onClick={handlePrintTwice}>
             <FontAwesomeIcon icon={faPrint} />
           </button>
         </div>
@@ -104,7 +189,17 @@ function Home() {
       </div>
       <Modificar activar={popupState.modificar} setActivar={() => togglePopup('modificar')} />
       <Eliminar activar={popupState.eliminar} setActivar={() => togglePopup('eliminar')} />
-      <Imprimir activar={popupState.imprimir} setActivar={() => togglePopup('imprimir')} />
+      <Imprimir 
+        activar={popupState.imprimir} 
+        setActivar={() => togglePopup('imprimir')} 
+        codigo={codigo}
+        setCodigo={setCodigo}
+        sendtoPrint={handlePrintTwice}
+        codigos={codigos}
+        setCodigos={setCodigos}
+        codeList={codeList}
+        setCodeList={setCodeList}
+        printList={printlist}/>
       <Registrar activar={popupState.registrar} setActivar={() => togglePopup('registrar')} />
     </div>
   );
