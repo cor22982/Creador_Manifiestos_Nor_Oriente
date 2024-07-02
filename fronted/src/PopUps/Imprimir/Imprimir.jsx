@@ -8,9 +8,7 @@ import Button from '@components/Button';
 import ListDisplay from '../../Components/ListDisplay/ListDisplay';
 
 
-function Imprimir({activar, setActivar, codigo, setCodigo, sendtoPrint}) {
-  const [codigos, setCodigos] = useState('');
-  const [codeList, setCodeList] = useState([]);
+function Imprimir({activar, setActivar, codigo, setCodigo, sendtoPrint, codigos, setCodigos, codeList, setCodeList, printList}) {
   const addCodeToList = () => {
     if (codigos.trim() !== '') {
       setCodeList([...codeList, codigos]);
@@ -20,6 +18,12 @@ function Imprimir({activar, setActivar, codigo, setCodigo, sendtoPrint}) {
 
   const printone = () => {
     sendtoPrint();
+    setActivar(false);
+  }
+
+  const printalist = async() => {
+    await printList();
+    setCodeList([]);
     setActivar(false);
   }
 
@@ -47,7 +51,8 @@ function Imprimir({activar, setActivar, codigo, setCodigo, sendtoPrint}) {
               titule='IMPRIMIR VARIOS'
               fontcolor='white'
               color='#1B75BA'
-              hovercolor='#306A95'/>
+              hovercolor='#306A95'
+              onclick={printalist}/>
           </div>
           <ListDisplay items={codeList} />
         </div>

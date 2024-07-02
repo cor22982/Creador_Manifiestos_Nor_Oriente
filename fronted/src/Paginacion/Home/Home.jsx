@@ -17,31 +17,31 @@ import { useReactToPrint } from "react-to-print";
 function Home() {
   const { code } = useCode();
   const { llamadowithoutbody } = useApi();
+  const { llamado } = useApi();
   const [headerData, setHeaderData] = useState({});
   const fecha = new Date();
   const fechaFormateada = fecha.toLocaleDateString();
   const [popupState, setPopupState] = useState({ modificar: false, eliminar: false, imprimir: false, registrar: false });
   const togglePopup = (popup) => setPopupState({ ...popupState, [popup]: !popupState[popup] });
-
   const [codigo, setCodigo] = useState(localStorage.getItem('codigo') || '');
   const [infoCodigo, setInfoCodigo] = useState({});
-  
+  const [codigos, setCodigos] = useState('');
+  const [codeList, setCodeList] = useState([]);
   useEffect(() => {
     localStorage.setItem('codigo', codigo);
   }, [codigo]);
 
-  useEffect(() => {
-    const setInfo = async() => {
-      try {
-        if (codigo) {
-          const data = await llamadowithoutbody('GET', `http://127.0.0.1:8000/api/printone/${codigo}`);
-          setInfoCodigo(data);
-          console.log(data);
-        }
-      } catch {
-        console.log("no se obtuvo");
+  const setInfo = async() => {
+    try {
+      if (codigo) {
+        const data = await llamadowithoutbody('GET', `http://127.0.0.1:8000/api/printone/${codigo}`);
+        setInfoCodigo(data);
       }
-    };
+    } catch {
+      console.log("no se obtuvo");
+    }
+  };
+  useEffect(() => {
     setInfo();
   }, [codigo]);
 
@@ -68,16 +68,38 @@ function Home() {
   });
 
   const handlePrintTwice = async () => {
+    await setInfo();
     await handlePrint();
     setTimeout(async () => {
       await handlePrint();
     }, 1000);
   };
 
+
+  //printlist
+  const component2Ref = useRef();
+  const handlePrintList = useReactToPrint({
+    content: () => component2Ref.current
+  });
+
+  const printlist =  async() => {
+    try{
+      const body = {hawb_codes:codeList};
+      const { packages }= await llamado(body, 'POST', 'http://127.0.0.1:8000/api/printlist')
+      console.log(packages)
+    }catch{
+      console.log("error")
+    }
+
+  }
+
   return (
     <div className="total">
       <div className="bauncher-print">
-        <Bauncher ref={componentRef} className="bauncher-print" info={infoCodigo} codigo={codigo}/>
+        <Bauncher 
+          ref={componentRef} 
+          className="bauncher-print" 
+          info={infoCodigo} />
       </div>
       
       <div className="titulos">
@@ -172,7 +194,12 @@ function Home() {
         setActivar={() => togglePopup('imprimir')} 
         codigo={codigo}
         setCodigo={setCodigo}
-        sendtoPrint={handlePrintTwice}/>
+        sendtoPrint={handlePrintTwice}
+        codigos={codigos}
+        setCodigos={setCodigos}
+        codeList={codeList}
+        setCodeList={setCodeList}
+        printList={printlist}/>
       <Registrar activar={popupState.registrar} setActivar={() => togglePopup('registrar')} />
     </div>
   );

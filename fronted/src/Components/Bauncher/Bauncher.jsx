@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import './Bauncher.css';
 
-const Bauncher = forwardRef(({ info, codigo }, ref) => {
+const Bauncher = forwardRef(({ info }, ref) => {
   const fecha = new Date();
   const fechaFormateada = fecha.toLocaleDateString();
   return (
@@ -63,7 +63,7 @@ const Bauncher = forwardRef(({ info, codigo }, ref) => {
               </td>
               <td className='ctd'>
                 <div className='peso-weight'>
-                  <p className='titulo'>{codigo || ''}</p>
+                  <p className='titulo'>{info?.codigo || ''}</p>
                   <p className='titulo-2'>{info?.tipo || ''}</p>
                 </div>
               </td>
