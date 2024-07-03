@@ -13,7 +13,7 @@ import useApi from '@hooks/useApi';
 import DocGenerator from './DocGenerator/DocGenerator';
 import Bauncher from '../../Components/Bauncher/Bauncher';
 import { useReactToPrint } from "react-to-print";
-
+import BauncherList from '../../Components/Bauncher/Baunchers/BauncherList';
 function Home() {
   const { code } = useCode();
   const { llamadowithoutbody } = useApi();
@@ -27,6 +27,7 @@ function Home() {
   const [infoCodigo, setInfoCodigo] = useState({});
   const [codigos, setCodigos] = useState('');
   const [codeList, setCodeList] = useState([]);
+  const [infoList, setInfoList] = useState([]);
   useEffect(() => {
     localStorage.setItem('codigo', codigo);
   }, [codigo]);
@@ -44,6 +45,8 @@ function Home() {
   useEffect(() => {
     setInfo();
   }, [codigo]);
+
+  
 
   const calldata = async () => {
     const respuesta = await llamadowithoutbody('GET', 'http://127.0.0.1:8000/api/data');
@@ -86,7 +89,8 @@ function Home() {
     try{
       const body = {hawb_codes:codeList};
       const { packages }= await llamado(body, 'POST', 'http://127.0.0.1:8000/api/printlist')
-      console.log(packages)
+      await setInfoList(packages)
+      await handlePrintList();
     }catch{
       console.log("error")
     }
@@ -100,6 +104,11 @@ function Home() {
           ref={componentRef} 
           className="bauncher-print" 
           info={infoCodigo} />
+      </div>
+      <div className="bauncher-print">
+        <BauncherList
+          list={infoList}
+          ref={component2Ref}></BauncherList>
       </div>
       
       <div className="titulos">

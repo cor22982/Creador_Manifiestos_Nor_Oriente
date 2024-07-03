@@ -1,0 +1,14 @@
+.list-bauncher {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 750px;
+  top: 0;
+  margin-top: 10px;
+}
+  
+
+.bauncher-item {
+  margin-bottom: 10px; 
+  position: relative;
+}
