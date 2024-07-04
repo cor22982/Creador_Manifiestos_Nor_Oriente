@@ -5,10 +5,11 @@ import './BauncherList.css';
 const BauncherList = forwardRef(({ list }, ref) => {
   return (
     <div ref={ref} className='list-bauncher'>
-      {list.map((item, index) => (
-        <div className="bauncher-item" >
+      {list.map((item, index) => ( 
           <BauncherOne key={index} info={item} />
-        </div>
+      ))}
+      {list.map((item, index) => ( 
+          <BauncherOne key={index} info={item} />
       ))}
     </div>
   );
