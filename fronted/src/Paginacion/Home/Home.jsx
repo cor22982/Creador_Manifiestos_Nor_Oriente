@@ -13,7 +13,7 @@ import useApi from '@hooks/useApi';
 import DocGenerator from './DocGenerator/DocGenerator';
 import Bauncher from '../../Components/Bauncher/Bauncher';
 import { useReactToPrint } from "react-to-print";
-
+import BauncherList from '../../Components/Bauncher/Baunchers/BauncherList';
 function Home() {
   const { code } = useCode();
   const { llamadowithoutbody } = useApi();
@@ -27,11 +27,13 @@ function Home() {
   const [infoCodigo, setInfoCodigo] = useState({});
   const [codigos, setCodigos] = useState('');
   const [codeList, setCodeList] = useState([]);
+  const [infoList, setInfoList] = useState([]);
+
   useEffect(() => {
     localStorage.setItem('codigo', codigo);
   }, [codigo]);
 
-  const setInfo = async() => {
+  const setInfo = async () => {
     try {
       if (codigo) {
         const data = await llamadowithoutbody('GET', `http://127.0.0.1:8000/api/printone/${codigo}`);
@@ -41,6 +43,7 @@ function Home() {
       console.log("no se obtuvo");
     }
   };
+
   useEffect(() => {
     setInfo();
   }, [codigo]);
@@ -75,23 +78,32 @@ function Home() {
     }, 1000);
   };
 
-
   //printlist
   const component2Ref = useRef();
   const handlePrintList = useReactToPrint({
     content: () => component2Ref.current
   });
 
-  const printlist =  async() => {
-    try{
-      const body = {hawb_codes:codeList};
-      const { packages }= await llamado(body, 'POST', 'http://127.0.0.1:8000/api/printlist')
-      console.log(packages)
-    }catch{
-      console.log("error")
-    }
+  const getPackages = async () => {
+    const body = { hawb_codes: codeList };
+    const { packages } = await llamado(body, 'POST', 'http://127.0.0.1:8000/api/printlist');
+    setInfoList(packages);
+  };
 
-  }
+  useEffect(() => {
+    if (codeList.length > 0) {
+      getPackages();
+    }
+  }, [codeList]);
+
+  const printlist = async () => {
+    try {
+      await getPackages();
+      await handlePrintList();
+    } catch {
+      console.log("error");
+    }
+  };
 
   return (
     <div className="total">
@@ -100,6 +112,11 @@ function Home() {
           ref={componentRef} 
           className="bauncher-print" 
           info={infoCodigo} />
+      </div>
+      <div className="bauncher-print">
+        <BauncherList
+          list={infoList}
+          ref={component2Ref}></BauncherList>
       </div>
       
       <div className="titulos">
