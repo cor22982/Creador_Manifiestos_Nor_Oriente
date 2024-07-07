@@ -1,0 +1,51 @@
+.main-input {
+  position: relative;
+}
+
+.main-input input {
+  height: 30px;
+  padding-left: 35px;
+  border: 2px solid #1B75BA;
+  border-radius: 5px;
+  font-size: 20px; 
+}
+
+.main-input input:active,
+.main-input input:focus {
+  border-color: #1B75BA;
+}
+
+.main-input span {
+  position: absolute;
+  left: 40px;
+  top: 8px;
+  background: white;
+  text-align: center;
+  pointer-events: none;
+  transition: 0.3s ease all;
+  padding: 0 5px; 
+  color: #054374;
+  font-size: 18px; 
+}
+
+.icon-form {
+  position: absolute;
+  top: 5px;
+  left: 8px;
+  color: #1B75BA;
+  font-size: 23px;
+}
+
+.main-input input:focus + span,
+.main-input input:not(:placeholder-shown) + span,
+.main-input input[value]:not([value=""]) + span {
+  transform: translateY(-15px);
+  transform: translateX(-150px);
+  border: 2px solid #1B75BA;
+  font-size: 12px; 
+}
+
+.fill {
+  transform: translateY(-25px);
+  font-size: 12px; 
+}
