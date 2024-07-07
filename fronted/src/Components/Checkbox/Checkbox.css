@@ -1,0 +1,26 @@
+.checkbox-container{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  transition: filter 0.3s; 
+}
+
+.button-checkbox{
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+}
+
+
+
+.button-checkbox-click{
+  width: 30px;
+  height: 30px;
+  background-color:#277ae0;
+}
+
+.titulo-checkbox{
+  color: #024274;
+  font-size: 25px;
+  margin-left: 10px;
+}
