@@ -6,7 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "laravel/framework": "^11.9",
+        "laravel/framework": "^11.14",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "robertogallea/laravel-python": "^0.1.1",
