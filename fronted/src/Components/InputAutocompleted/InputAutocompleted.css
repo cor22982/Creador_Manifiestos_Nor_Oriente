@@ -1,0 +1,21 @@
+.suggestions{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  z-index: 3;
+  background-color: white;
+  border: 1px solid gray;
+  height: 50px;
+  width: 115px;
+  overflow-y: auto;
+  margin-top: 2px;
+  padding-left: 10px;
+}
+
+.suggestions li {
+  list-style: none;
+}
+
+.suggestions li:hover {
+  cursor: pointer;
+}
