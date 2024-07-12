@@ -4,7 +4,7 @@ import './InputAutocompleted.css'
 function InputAutocompleted({iconin, width_input,titule, height_input, font, options = ["Oranges", "Apples", "Pearls"]}) {
   const [value, setValue] = useState("");
     const [showSuggestions, setShowSuggestions] = useState(false);
-    const suggestions = options.filter(option => option.toLowerCase().includes(value.toLowerCase()))
+    const suggestions = options.filter(option => option.toString().toLowerCase().includes(value.toString().toLowerCase()))
     
     const autocompleteRef = useRef();
 

@@ -18,4 +18,6 @@
 
 .suggestions li:hover {
   cursor: pointer;
+  background-color: #0090FF;
+  color: white;
 }

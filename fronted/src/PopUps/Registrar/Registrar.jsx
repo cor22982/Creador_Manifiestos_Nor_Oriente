@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect,useState } from 'react';
 import PopUp from '@components/PopUp';
 import InputForm from '@components/InputForm';
 import TextAreaForm from '@components/TextAreaForm';
@@ -6,7 +6,31 @@ import Checkbox from '@components/Checkbox';
 import { faUser, faHashtag, faLocationDot, faPhone, faWeightHanging, faList, faFilePen, faPrint, faX } from '@fortawesome/free-solid-svg-icons';
 import Button from '@components/Button';
 import InputAutocompleted from '@components/InputAutocompleted';
+import useApi from '@hooks/useApi';
 function Registrar({ activar, setActivar }) {
+
+  const [id_gt, setId_gt] = useState([])
+  const [id_usa, setId_usa] = useState([])
+  const { llamadowithoutbody } = useApi();
+  const cancel = () => {
+    setActivar(false)
+  }
+
+  useEffect(() => {
+    const getDirecciones_guate = async () => {
+      const data = await llamadowithoutbody('GET', 'http://127.0.0.1:8000/api/guatemala_address')
+      const ids = data.map(item => item.id);  
+      setId_gt(ids)
+    }
+    const getDirecciones_usa = async () => {
+      const data = await llamadowithoutbody('GET', 'http://127.0.0.1:8000/api/usa_address')
+      const ids = data.map(item => item.id);
+      setId_usa(ids)
+    }
+    getDirecciones_guate();
+    getDirecciones_usa();
+  }, [])
+
   return (
     <PopUp trigger={activar} setTrigger={setActivar}>
       <div className='formregister' style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -30,6 +54,7 @@ function Registrar({ activar, setActivar }) {
             width_input='85px'
             titule='Direccion'
             iconin={faLocationDot}
+            options={id_gt}
             />
         </div>
         <div style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
@@ -43,6 +68,7 @@ function Registrar({ activar, setActivar }) {
             width_input='85px'
             titule='Direccion'
             iconin={faLocationDot}
+            options={id_usa}
             />
         </div>
         <InputForm
@@ -104,7 +130,8 @@ function Registrar({ activar, setActivar }) {
             fontcolor='#004981'
             hovercolor='#0090FF'
             bordercolor='#07395E'
-            height_btn='40px'></Button>
+            height_btn='40px'
+            onclick={cancel}></Button>
         </div>
       </div>
     </PopUp>
