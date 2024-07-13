@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import './InputForm.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function InputForm({ iconin, width_input,titule, height_input, font }) {
+function InputForm({ iconin, width_input,titule, height_input, font, type }) {
   const [value, setValue] = useState('');
 
   return (
     <div>
       <div className='main-input'>
         <input
-          type="text"
+          type={type}
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder=" "

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './InputAutocompleted.css'
-function InputAutocompleted({iconin, width_input,titule, height_input, font, options = ["Oranges", "Apples", "Pearls"]}) {
+function InputAutocompleted({type, iconin, width_input,titule, height_input, font, options = ["Oranges", "Apples", "Pearls"]}) {
   const [value, setValue] = useState("");
     const [showSuggestions, setShowSuggestions] = useState(false);
     const suggestions = options.filter(option => option.toString().toLowerCase().includes(value.toString().toLowerCase()))
@@ -35,6 +35,7 @@ function InputAutocompleted({iconin, width_input,titule, height_input, font, opt
                 onChange={handleChange}
                 placeholder=" "
                 onFocus={() => setShowSuggestions(true)}
+                type={type}
                 style={{width: width_input, height: height_input,fontSize: font}}
             />
             <div className='icon-form'>

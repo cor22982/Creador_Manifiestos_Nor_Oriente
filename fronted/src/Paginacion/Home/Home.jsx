@@ -217,7 +217,10 @@ function Home() {
         codeList={codeList}
         setCodeList={setCodeList}
         printList={printlist}/>
-      <Registrar activar={popupState.registrar} setActivar={() => togglePopup('registrar')} />
+      <Registrar 
+        activar={popupState.registrar} 
+        setActivar={() => togglePopup('registrar')} 
+        sendtoPrint={handlePrintTwice}/>
     </div>
   );
 }

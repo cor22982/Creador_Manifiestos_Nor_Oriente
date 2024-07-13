@@ -7,12 +7,17 @@ import { faUser, faHashtag, faLocationDot, faPhone, faWeightHanging, faList, faF
 import Button from '@components/Button';
 import InputAutocompleted from '@components/InputAutocompleted';
 import useApi from '@hooks/useApi';
-function Registrar({ activar, setActivar }) {
+function Registrar({ activar, setActivar, sendtoPrint }) {
 
   const [id_gt, setId_gt] = useState([])
   const [id_usa, setId_usa] = useState([])
   const { llamadowithoutbody } = useApi();
   const cancel = () => {
+    setActivar(false)
+  }
+
+  const print = async() => {
+    await sendtoPrint()
     setActivar(false)
   }
 
@@ -42,6 +47,7 @@ function Registrar({ activar, setActivar }) {
           height_input='45px'
           font='29px'
           titule='Bulto'
+          type="number"
         />
         <div style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
           <InputForm
@@ -55,6 +61,7 @@ function Registrar({ activar, setActivar }) {
             titule='Direccion'
             iconin={faLocationDot}
             options={id_gt}
+            type="number"
             />
         </div>
         <div style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
@@ -69,6 +76,7 @@ function Registrar({ activar, setActivar }) {
             titule='Direccion'
             iconin={faLocationDot}
             options={id_usa}
+            type="number"
             />
         </div>
         <InputForm
@@ -76,6 +84,7 @@ function Registrar({ activar, setActivar }) {
           width_input='250px'
           titule='Telefono'
           height_input='35px'
+          type="number"
         />
         <TextAreaForm
           iconin={faList}
@@ -87,6 +96,7 @@ function Registrar({ activar, setActivar }) {
             titule='Peso(Lb)'
             height_input='50px'
             font='35px'
+            type="number"
           />
           <InputForm
             iconin={faHashtag}
@@ -122,7 +132,8 @@ function Registrar({ activar, setActivar }) {
             color='#0090FF'
             fontcolor='white'
             hovercolor='#0090FF'
-            height_btn='40px'></Button>
+            height_btn='40px'
+            onclick={print}></Button>
           <Button
             iconin={faX}
             titule='Cancelar'
