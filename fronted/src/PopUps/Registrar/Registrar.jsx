@@ -7,11 +7,38 @@ import { faUser, faHashtag, faLocationDot, faPhone, faWeightHanging, faList, faF
 import Button from '@components/Button';
 import InputAutocompleted from '@components/InputAutocompleted';
 import useApi from '@hooks/useApi';
-function Registrar({ activar, setActivar, sendtoPrint }) {
+import useForm from '@hooks/useForm';
+import { object, string, number } from 'yup'
 
+//Schema to send packages  
+const schema = object({
+  hawb: string().required(),
+  manifest: string().required(),
+  weight_lb: number().required(),
+  description_spanish: string().required(),
+  shipper: string().required(),
+  tel_ship: string().required().default("0"),
+  id_ship: number().required(),
+  consing: string().required(),
+  tel_consg: string().required().min(10, "El numero minimo es de 10 caracteres"),
+  id_consing: number().required(),
+  type_bag: string().required(),
+  atendend: string().required(),
+  bag: number().required()
+})
+
+function Registrar({ activar, setActivar, sendtoPrint, setCodigo, manifiesto }) {
+  const { values, setValue, validate, errors } = useForm(schema)
   const [id_gt, setId_gt] = useState([])
   const [id_usa, setId_usa] = useState([])
   const { llamadowithoutbody } = useApi();
+  const [seco, setSeco] = useState(false);
+  const [frio, setFrio] = useState(false);
+  const handleSubmit = async () => {
+    console.log('Values:', values)
+    console.log(values.weight_lb)
+  }
+
   const cancel = () => {
     setActivar(false)
   }
@@ -48,6 +75,8 @@ function Registrar({ activar, setActivar, sendtoPrint }) {
           font='29px'
           titule='Bulto'
           type="number"
+          value={values.bag || ''}
+          onChange={(value) => {setValue('bag', value)}}
         />
         <div style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
           <InputForm
@@ -55,6 +84,8 @@ function Registrar({ activar, setActivar, sendtoPrint }) {
             width_input='350px'
             titule='Nombre Envia'
             height_input='35px'
+            value={values.shipper || ''}
+            onChange={(value) => {setValue('shipper', value)}}
           />
           <InputAutocompleted
             width_input='85px'
@@ -70,6 +101,8 @@ function Registrar({ activar, setActivar, sendtoPrint }) {
             width_input='350px'
             titule='Nombre Recibe'
             height_input='35px'
+            value={values.consing || ''}
+            onChange={(value) => {setValue('consing', value)}}
           />
           <InputAutocompleted
             width_input='85px'
@@ -85,6 +118,8 @@ function Registrar({ activar, setActivar, sendtoPrint }) {
           titule='Telefono'
           height_input='35px'
           type="number"
+          value={values.tel_consg || ''}
+          onChange={(value) => {setValue('tel_consg', value)}}
         />
         <TextAreaForm
           iconin={faList}
@@ -97,6 +132,8 @@ function Registrar({ activar, setActivar, sendtoPrint }) {
             height_input='50px'
             font='35px'
             type="number"
+            value={values.weight_lb || ''}
+            onChange={(value) => {setValue('weight_lb', value)}}
           />
           <InputForm
             iconin={faHashtag}
@@ -104,17 +141,29 @@ function Registrar({ activar, setActivar, sendtoPrint }) {
             titule='Codigo'
             height_input='50px'
             font='40px'
+            value={values.hawb || ''}
+            onChange={(value) => {setValue('hawb', value)}}
           />
         </div>
         <div style={{ display: 'flex', flexDirection: 'row', gap: '10px', alignItems: 'center', marginTop: '0px'}}>
-          <Checkbox name='SECO' />
-          <Checkbox name='FRIO' />
+          <Checkbox 
+            name='SECO' 
+            onpress={() => {setValue('type_bag','SECO'); setFrio(false)}}
+            pressed={seco}
+            setPressed={setSeco}/>
+          <Checkbox 
+            name='FRIO' 
+            onpress={() => {setValue('type_bag','FRIO'); setSeco(false)}}
+            pressed={frio}
+            setPressed={setFrio}/>
           <InputForm
             iconin={faUser}
             width_input='270px'
             titule='Atentido por'
             height_input='35px'
             font='20px'
+            value={values.atendend || ''}
+            onChange={(value) => {setValue('atendend', value)}}
             
           />
         </div>
@@ -125,7 +174,8 @@ function Registrar({ activar, setActivar, sendtoPrint }) {
             color='#1B75BA'
             fontcolor='white'
             hovercolor='#0090FF'
-            height_btn='40px'></Button>
+            height_btn='40px'
+            onclick={handleSubmit}></Button>
           <Button
             iconin={faPrint}
             titule='Imprimir'

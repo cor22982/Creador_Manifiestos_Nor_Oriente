@@ -20,6 +20,18 @@ function InputAutocompleted({type, iconin, width_input,titule, height_input, fon
         }
     }, [])
 
+    let blurTimeout;
+
+    const handleFocus = () => {
+        clearTimeout(blurTimeout);
+        setShowSuggestions(true);
+    };
+
+    const handleBlur = () => {
+        blurTimeout = setTimeout(() => {
+            setShowSuggestions(false);
+        }, 100);
+    };
     const handleChange = event => {
         setValue(event.target.value);
     }
@@ -34,6 +46,8 @@ function InputAutocompleted({type, iconin, width_input,titule, height_input, fon
                 value={value}
                 onChange={handleChange}
                 placeholder=" "
+             
+                onBlur={handleBlur}
                 onFocus={() => setShowSuggestions(true)}
                 type={type}
                 style={{width: width_input, height: height_input,fontSize: font}}

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+
 import './InputForm.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function InputForm({ iconin, width_input,titule, height_input, font, type }) {
-  const [value, setValue] = useState('');
+function InputForm({ iconin, width_input,titule, height_input, font, type, value, onChange }) {
+  
 
   return (
     <div>
@@ -11,7 +11,7 @@ function InputForm({ iconin, width_input,titule, height_input, font, type }) {
         <input
           type={type}
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={({ target: { value }}) => onChange(value)}
           placeholder=" "
           style={{width: width_input, height: height_input,fontSize: font}}
         />
@@ -24,7 +24,4 @@ function InputForm({ iconin, width_input,titule, height_input, font, type }) {
   );
 }
 
-InputForm.defaultProps = {
-  height_input: '30px' 
-};
 export default InputForm;

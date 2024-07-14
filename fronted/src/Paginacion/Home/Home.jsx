@@ -220,7 +220,9 @@ function Home() {
       <Registrar 
         activar={popupState.registrar} 
         setActivar={() => togglePopup('registrar')} 
-        sendtoPrint={handlePrintTwice}/>
+        sendtoPrint={handlePrintTwice}
+        setCodigo={setCodigo}
+        manifiesto={code}/>
     </div>
   );
 }

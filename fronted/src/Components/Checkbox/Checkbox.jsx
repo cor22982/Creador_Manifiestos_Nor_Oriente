@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import './Checkbox.css'
-function Checkbox({name}) {
-  const [pressed, setPressed] = useState(false);
+function Checkbox({name, onpress, pressed, setPressed}) {
   const handleClick = () => {
     setPressed(!pressed); // Cambiar el estado de presionado
+    if(!pressed){
+      onpress()
+    }
   };
   return (
     <div className='checkbox-container'>
