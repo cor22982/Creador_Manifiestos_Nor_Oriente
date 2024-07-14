@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './InputAutocompleted.css'
-function InputAutocompleted({type, iconin, width_input,titule, height_input, font, options = ["Oranges", "Apples", "Pearls"]}) {
-  const [value, setValue] = useState("");
+function InputAutocompleted({type, iconin, width_input,titule, height_input, font, options = ["Oranges", "Apples", "Pearls"], onChange, value, setValue}) {
     const [showSuggestions, setShowSuggestions] = useState(false);
     const suggestions = options.filter(option => option.toString().toLowerCase().includes(value.toString().toLowerCase()))
     
@@ -20,6 +19,14 @@ function InputAutocompleted({type, iconin, width_input,titule, height_input, fon
         }
     }, [])
 
+    const handleChange = event => {
+        setValue(event.target.value);
+    }
+
+    const handleSuggestionClick = (suggetion) => {
+        setValue(suggetion);
+        setShowSuggestions(false);
+    }
     let blurTimeout;
 
     const handleFocus = () => {
@@ -32,21 +39,12 @@ function InputAutocompleted({type, iconin, width_input,titule, height_input, fon
             setShowSuggestions(false);
         }, 100);
     };
-    const handleChange = event => {
-        setValue(event.target.value);
-    }
-
-    const handleSuggestionClick = (suggetion) => {
-        setValue(suggetion);
-        setShowSuggestions(false);
-    }
   return (
     <div className="main-input" ref={autocompleteRef}>
             <input
                 value={value}
-                onChange={handleChange}
+                onChange={({ target: { value }}) => onChange(value)}    
                 placeholder=" "
-             
                 onBlur={handleBlur}
                 onFocus={() => setShowSuggestions(true)}
                 type={type}

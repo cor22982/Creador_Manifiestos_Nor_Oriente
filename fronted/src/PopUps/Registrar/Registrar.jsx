@@ -93,6 +93,9 @@ function Registrar({ activar, setActivar, sendtoPrint, setCodigo, manifiesto }) 
             iconin={faLocationDot}
             options={id_gt}
             type="number"
+            value={(values.id_ship || '').toString()}
+            onChange={(value) => {setValue('id_ship', value)}}
+            setValue={(value) => {setValue('id_ship', value)}}
             />
         </div>
         <div style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
@@ -110,6 +113,9 @@ function Registrar({ activar, setActivar, sendtoPrint, setCodigo, manifiesto }) 
             iconin={faLocationDot}
             options={id_usa}
             type="number"
+            value={(values.id_consing || '').toString()}
+            onChange={(value) => {setValue('id_consing', value)}}
+            setValue={(value) => {setValue('id_consing', value)}}
             />
         </div>
         <InputForm
