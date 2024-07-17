@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import './TextAreaForm.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function TextAreaForm({ iconin }) {
-  const [value, setValue] = useState('');
-
+function TextAreaForm({ iconin, value, onChange }) {
+ 
   return (
     <div>
       <div className='main-textarea'>
         <textarea
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={({ target: { value }}) => onChange(value)}
           placeholder=" " /* Add placeholder to ensure CSS effect works */
         />
         <div className='icon-form'>
