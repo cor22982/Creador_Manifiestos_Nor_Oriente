@@ -1,0 +1,50 @@
+.main-textarea {
+  position: relative;
+}
+
+.main-textarea textarea {
+  height: 50px; /* Adjust height as needed */
+  width: 490px;
+  padding-left: 35px;
+  padding-top: 10px; /* Add padding for the label */
+  border: 2px solid #1B75BA;
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
+  font-size: 20px; 
+}
+
+.main-textarea textarea:focus {
+  border-color: #1B75BA;
+}
+
+.main-textarea span {
+  position: absolute;
+  left: 40px;
+  top: 8px;
+  background: white;
+  text-align: center;
+  pointer-events: none;
+  transition: 0.3s ease all;
+  padding: 0 5px;
+  color: #054374;
+  font-size: 18px; 
+}
+
+.icon-form {
+  position: absolute;
+  top: 8px;
+  left: 5px;
+  color: #1B75BA;
+}
+
+.main-textarea textarea:focus + span,
+.main-textarea textarea:not(:placeholder-shown) + span,
+.main-textarea textarea[value]:not([value=""]) + span {
+  transform: translateY(-20px);
+  font-size: 8px; 
+}
+
+.fill {
+  transform: translateY(-20px);
+  font-size: 8px; 
+}

@@ -2,4 +2,20 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+  gap: 2px;
+}
+
+.er-span{
+  color: red;
+  margin: 0px;
+  display: flex;
+  
+  
+}
+
+.componente-input{
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+
 }
